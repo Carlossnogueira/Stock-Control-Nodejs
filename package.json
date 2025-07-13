@@ -1,0 +1,26 @@
+{
+  "name": "stock-control-nodejs",
+  "version": "1.0.0",
+  "description": "This is a simple inventory control system designed for study purposes. It helps manage product quantities, track stock movements, and ensure that inventory data remains accurate and up-to-date.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tsx src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "3.0.2",
+    "dotenv": "17.2.0",
+    "fastify": "5.4.0",
+    "prisma": "6.11.1",
+    "zod": "4.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.13",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3"
+  }
+}
