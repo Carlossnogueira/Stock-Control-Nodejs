@@ -1,6 +1,6 @@
-import { prisma } from '../lib/prisma'
-import { PrismaUsersRepository } from "../repositories/userRepository"
-import { generateHash } from "../utils/hash"
+import { prisma } from '../../lib/prisma'
+import { PrismaUsersRepository } from "../../repositories/userRepository"
+import { generateHash } from "../../utils/hash"
 
 interface RegisterUseCaseRequest {
     name: string,
@@ -12,7 +12,6 @@ export async function registerUserUseCase({ name, password, email }: RegisterUse
 
     const passwordHash = await generateHash(password)
 
-    // TODO: verify if email exists 
     const userWithSameEmail = await prisma.user.findUnique({
         where: {
             email,
