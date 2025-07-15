@@ -37,13 +37,13 @@ model Category {
 model Product {
   id           Int         @id @default(autoincrement())
   name         String
-  sku          String      @unique
+  sku          String?      @unique
   quantity     Int
   category_id  Int
   category     Category  @relation(fields: [category_id], references: [id])
   min_quantity Int
   max_quantity Int
-  price_coust  Decimal     @db.Decimal(10, 2)
+  price_cost  Decimal     @db.Decimal(10, 2)
   price_sale   Decimal     @db.Decimal(10, 2)
   supplier_id  Int?
   supplierId   Supplier?   @relation(fields: [supplier_id], references: [id])
