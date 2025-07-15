@@ -14,9 +14,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
+enum MovementType {
+  ENTRY
+  EXIT
+}
+
+model User {
+  id            Int         @id @default(autoincrement())
+  name          String
+  email         String      @unique
   password_hash String
+  Movements     Movement[]
+  created_at   DateTime    @default(now())
+}
+
+model Category {
+  id       Int      @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id           Int         @id @default(autoincrement())
+  name         String
+  sku          String      @unique
+  quantity     Int
+  category_id  Int
+  category     Category  @relation(fields: [category_id], references: [id])
+  min_quantity Int
+  max_quantity Int
+  price_coust  Decimal     @db.Decimal(10, 2)
+  price_sale   Decimal     @db.Decimal(10, 2)
+  supplier_id  Int?
+  supplierId   Supplier?   @relation(fields: [supplier_id], references: [id])
+  created_at   DateTime    @default(now())
+  Movements    Movement[]
+}
+
+model Movement {
+  id          Int          @id @default(autoincrement())
+  product_id  Int
+  productId   Product       @relation(fields: [product_id], references: [id])
+  type        MovementType
+  quantity    Int
+  description String
+  user_id     Int
+  userId      User         @relation(fields: [user_id], references: [id])
+  created_at  DateTime     @default(now())
+}
+
+model Supplier {
+  id     Int      @id @default(autoincrement())
+  name   String
+  phone  String
+  email  String
+  Produt Product[]
 }
