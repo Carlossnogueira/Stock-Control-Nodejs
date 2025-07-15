@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { file, z } from "zod";
-import { loginUserUseCase } from "../../user-cases/User/loginUserUseCase";
+import { z } from "zod";
+import { loginUserUseCase } from "../../../user-cases/User/loginUserUseCase";
 
 
 export async function loginUser(request: FastifyRequest, reply: FastifyReply) {

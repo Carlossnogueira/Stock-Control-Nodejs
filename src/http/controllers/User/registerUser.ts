@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { registerUserUseCase } from '../../user-cases/User/registerUserUseCase'
+import { registerUserUseCase } from '../../../user-cases/User/registerUserUseCase'
 import { z } from 'zod'
 
 export async function registerUser(request: FastifyRequest, reply: FastifyReply) {
