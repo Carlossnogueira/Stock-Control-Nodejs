@@ -8,7 +8,7 @@ export const app = fastify()
 app.register(appRoutes)
 
 app.register(fastifyJwt, {
-    secret: env.SECRET_KEY
+    secret: env.SECRET_KEY  
 })
 
 

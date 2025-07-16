@@ -71,7 +71,7 @@ export async function createProduct(
       }));
 
       return reply.status(400).send({
-        message: "Error to registe this product",
+        message: "Error to register this product",
         errors,
       });
     }
@@ -79,8 +79,8 @@ export async function createProduct(
     const errorMessage =
       e instanceof Error ? e.message : "Unknow errror to register this product";
 
-    return reply.status(500).send({
-      message: "Internal server error.",
+    return reply.status(400).send({
+      message: "Bad request",
       error: errorMessage,
     });
   }

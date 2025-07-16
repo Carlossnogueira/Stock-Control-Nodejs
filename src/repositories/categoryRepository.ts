@@ -14,4 +14,9 @@ export class CategoryRepository {
     const category = await prisma.category.findFirst({ where: { id: id } });
     return category;
   }
+
+  async findByName(name: string) {
+    const category = await prisma.category.findFirst({ where: { name: name } });
+    return category;
+  }
 }
