@@ -1,28 +1,28 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createNewCategory } from "../../../user-cases/Category/createCategoryUseCase";
 import z from "zod";
+import { createNewSupplier } from "../../../user-cases/Supplier/createSupplierUseCase";
 
-export async function createCategory(
+export async function createSupplier(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const categorySchema = z.object({
+  const createSupplierSchema = z.object({
     name: z
       .string()
-      .min(1, "Min 1 character to create a category.")
+      .min(1, "Supplier require a name.")
       .max(50, "Max 50 characters."),
+    phone: z.coerce
+      .string()
+      .min(11, "Write phone number with DDD, 11 digits.")
+      .max(11, "Write phone number with DDD, 11 digits."),
+    email: z.email("Email is not valid."),
   });
 
   try {
-    const { name } = categorySchema.parse(request.body);
+    // TODO supplier controller http response
+    const { name, email, phone } = createSupplierSchema.parse(request.body);
 
-    const result = await createNewCategory(name);
-
-    if (result === false) {
-      return reply.status(401).send("Fail to create this category.");
-    }
-
-    return reply.status(201).send("Create success!");
+    const result = await createNewSupplier({ name, email, phone });
   } catch (e) {
     if (e instanceof z.ZodError) {
       const errors = e.issues.map((issue) => ({

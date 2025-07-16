@@ -4,6 +4,7 @@ import { loginUser } from "./controllers/User/loginUser";
 import { verifyJWT } from "../middlewares/verifyJWT";
 import { createProduct } from "./controllers/Product/createProduct";
 import { createCategory } from "./controllers/Category/createCategory";
+import { createSupplier } from "./controllers/Supplier/createSupplier";
 
 export async function appRoutes(app: FastifyInstance) {
   // User Routes
@@ -12,15 +13,6 @@ export async function appRoutes(app: FastifyInstance) {
 
   app.post("/login", loginUser);
 
-  app.get(
-    "/jwtvalidation",
-    { preHandler: [verifyJWT] },
-    async (request, response) => {
-      const user = await request.jwtVerify();
-      return { user };
-    }
-  );
-
   // Product Routes
 
   app.post("/product", { preHandler: [verifyJWT] }, createProduct);
@@ -28,4 +20,9 @@ export async function appRoutes(app: FastifyInstance) {
   // Category Routes
 
   app.post("/category", { preHandler: [verifyJWT] }, createCategory);
+
+
+  // Supplier Routes
+
+  app.post("/supplier", { preHandler: [verifyJWT] } , createSupplier)
 }

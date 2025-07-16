@@ -21,7 +21,7 @@ export async function createNewProduct(product: Product) {
   const productRepository = new ProductRepository();
   const categoryRepository = new CategoryRepository();
 
-  const findCategory = await categoryRepository.find(
+  const findCategory = await categoryRepository.findById(
     product.category.connect.id
   );
 

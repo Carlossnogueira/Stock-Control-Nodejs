@@ -10,7 +10,7 @@ export class CategoryRepository {
     return true;
   }
 
-  async find(id: number) {
+  async findById(id: number) {
     const category = await prisma.category.findFirst({ where: { id: id } });
     return category;
   }

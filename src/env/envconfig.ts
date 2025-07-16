@@ -10,9 +10,9 @@ const envSchema = z.object({
 const _env = envSchema.safeParse(process.env);
 
 if (_env.success === false) {
-  console.log("ERROR: Your environment variables aren't correct!");
+  console.log("-> LOG: Your environment variables aren't correct!");
 } else {
-  console.log("LOG: Enviroment variables are checked, all ok!");
+  console.log("-> LOG: Enviroment variables are checked, all ok!");
 }
 
 export const env = _env.data;
