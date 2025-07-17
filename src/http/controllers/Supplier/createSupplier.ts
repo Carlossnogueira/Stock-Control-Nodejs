@@ -23,6 +23,8 @@ export async function createSupplier(
     const { name, email, phone } = createSupplierSchema.parse(request.body);
 
     const result = await createNewSupplier({ name, email, phone });
+
+    return reply.status(201).send('Supplier create sucsses!')
   } catch (e) {
     if (e instanceof z.ZodError) {
       const errors = e.issues.map((issue) => ({

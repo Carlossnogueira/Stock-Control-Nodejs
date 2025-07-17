@@ -6,8 +6,6 @@ interface Supplier{
     phone:string
 }
 
-
-// TODO supplier use case
 export async function createNewSupplier(supplier : Supplier) {
 
     const supplierRepository = new SupplierRepository()
