@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { loginUserUseCase } from "../../../user-cases/User/loginUserUseCase";
+import { ZodErrorsFormated } from "../../../errors/Zod/ZodErrorsFormated";
 
 export async function loginUser(request: FastifyRequest, reply: FastifyReply) {
   const userRequestSchema = z.object({
@@ -39,13 +40,10 @@ export async function loginUser(request: FastifyRequest, reply: FastifyReply) {
     }
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const errors = e.issues.map((issue) => ({
-        field: issue.path.join("."),
-        message: issue.message,
-      }));
+      const errors = await ZodErrorsFormated(e);
 
       return reply.status(400).send({
-        message: "Error to validate login",
+        message: "Error to registe this product",
         errors,
       });
     }

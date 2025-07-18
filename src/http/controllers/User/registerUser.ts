@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { registerUserUseCase } from "../../../user-cases/User/registerUserUseCase";
 import { z } from "zod";
+import { ZodErrorsFormated } from "../../../errors/Zod/ZodErrorsFormated";
 
 export async function registerUser(
   request: FastifyRequest,
@@ -38,21 +39,18 @@ export async function registerUser(
     return reply.status(201).send({
       message: "User created success",
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      const errors = error.issues.map((issue) => ({
-        field: issue.path.join("."),
-        message: issue.message,
-      }));
+  } catch (e) {
+    if (e instanceof z.ZodError) {
+      const errors = await ZodErrorsFormated(e);
 
       return reply.status(400).send({
-        message: "Error to validate user request",
+        message: "Error to registe this product",
         errors,
       });
     }
 
     const errorMessage =
-      error instanceof Error ? error.message : "Unkwon error to register user.";
+      e instanceof Error ? e.message : "Unkwon error to register user.";
 
     return reply.status(500).send({
       message: "Internal server error.",

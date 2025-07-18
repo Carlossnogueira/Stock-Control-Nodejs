@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 import { createNewSupplier } from "../../../user-cases/Supplier/createSupplierUseCase";
+import { ZodErrorsFormated } from "../../../errors/Zod/ZodErrorsFormated";
 
 export async function createSupplier(
   request: FastifyRequest,
@@ -19,18 +20,14 @@ export async function createSupplier(
   });
 
   try {
-    // TODO supplier controller http response
     const { name, email, phone } = createSupplierSchema.parse(request.body);
 
     const result = await createNewSupplier({ name, email, phone });
 
-    return reply.status(201).send('Supplier create sucsses!')
+    return reply.status(201).send("Supplier create sucsses!");
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const errors = e.issues.map((issue) => ({
-        field: issue.path.join("."),
-        message: issue.message,
-      }));
+      const errors = await ZodErrorsFormated(e);
 
       return reply.status(400).send({
         message: "Error to registe this product",

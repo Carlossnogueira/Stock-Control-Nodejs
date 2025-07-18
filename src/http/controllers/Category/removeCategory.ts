@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { removeCategory as remove } from "../../../user-cases/Category/removeCategoryUseCase";
 import z from "zod";
+import { ZodErrorsFormated } from "../../../errors/Zod/ZodErrorsFormated";
 
 export async function removeCategory(
   request: FastifyRequest,
@@ -26,13 +27,10 @@ export async function removeCategory(
     }
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const errors = e.issues.map((issue) => ({
-        field: issue.path.join("."),
-        message: issue.message,
-      }));
+      const errors = await ZodErrorsFormated(e);
 
       return reply.status(400).send({
-        message: "Error delete category",
+        message: "Error to registe this product",
         errors,
       });
     }

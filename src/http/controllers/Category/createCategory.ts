@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { createNewCategory } from "../../../user-cases/Category/createCategoryUseCase";
 import z from "zod";
+import { ZodErrorsFormated } from "../../../errors/Zod/ZodErrorsFormated";
 
 export async function createCategory(
   request: FastifyRequest,
@@ -25,10 +26,7 @@ export async function createCategory(
     return reply.status(201).send("Create success!");
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const errors = e.issues.map((issue) => ({
-        field: issue.path.join("."),
-        message: issue.message,
-      }));
+      const errors = await ZodErrorsFormated(e)
 
       return reply.status(400).send({
         message: "Error to registe this product",
@@ -37,7 +35,7 @@ export async function createCategory(
     }
 
     const errorMessage =
-      e instanceof Error ? e.message : "Unknow errror to register this product";
+      e instanceof Error ? e.message : "Unknow error to register this product";
 
     return reply.status(400).send({
       message: "Bad request",
