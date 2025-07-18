@@ -5,6 +5,8 @@ import { verifyJWT } from "../middlewares/verifyJWT";
 import { createProduct } from "./controllers/Product/createProduct";
 import { createCategory } from "./controllers/Category/createCategory";
 import { createSupplier } from "./controllers/Supplier/createSupplier";
+import { getAllCategories } from "./controllers/Category/getAllCategory";
+import { removeCategory } from "./controllers/Category/removeCategory";
 
 export async function appRoutes(app: FastifyInstance) {
   // User Routes
@@ -20,9 +22,11 @@ export async function appRoutes(app: FastifyInstance) {
   // Category Routes
 
   app.post("/category", { preHandler: [verifyJWT] }, createCategory);
+  app.get("/category", { preHandler: [verifyJWT] }, getAllCategories);
+  app.delete("/category/:id", {preHandler: [verifyJWT]}, removeCategory);
 
 
   // Supplier Routes
 
-  app.post("/supplier", { preHandler: [verifyJWT] } , createSupplier)
+  app.post("/supplier", { preHandler: [verifyJWT] }, createSupplier);
 }

@@ -53,8 +53,7 @@ export async function loginUser(request: FastifyRequest, reply: FastifyReply) {
     const errorMessage =
       e instanceof Error ? e.message : "Unknow errror to register user";
 
-    return reply.status(500).send({
-      message: "Internal server error.",
+    return reply.status(400).send({
       error: errorMessage,
     });
   }

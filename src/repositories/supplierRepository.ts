@@ -19,4 +19,18 @@ export class SupplierRepository {
     const supplier = await prisma.supplier.findFirst({ where: { name: name } });
     return supplier;
   }
+
+  async getAll(){
+    const suppliers = await prisma.supplier.findMany()
+    return suppliers;
+  }
+
+  async remove(id: number){
+
+  }
+
+  async update(id: number, data: Prisma.SupplierCreateInput){
+
+  }
+
 }

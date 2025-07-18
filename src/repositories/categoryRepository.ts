@@ -19,4 +19,20 @@ export class CategoryRepository {
     const category = await prisma.category.findFirst({ where: { name: name } });
     return category;
   }
+
+  async getAll(){
+    const categorys = await prisma.category.findMany()
+    return categorys;
+  }
+
+  async remove(id: number){
+    const remove = await prisma.category.delete({where: {id: id}})
+    return remove
+  }
+
+  async update(id: number, data: Prisma.CategoryCreateInput){
+    const category = await prisma.category.update({where: {id:id}, data})
+    return category
+  }
+
 }

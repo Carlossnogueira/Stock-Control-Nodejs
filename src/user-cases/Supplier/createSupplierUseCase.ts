@@ -27,6 +27,5 @@ export async function createNewSupplier(supplier : Supplier) {
     } catch (error) {
          throw new Error("Fail to create this Supplier.");
     }
-   
  
 }

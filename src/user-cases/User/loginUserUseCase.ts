@@ -1,4 +1,3 @@
-import { compare } from "bcryptjs";
 import { PrismaUsersRepository } from "../../repositories/userRepository";
 import { compareHashPassword, generateHash } from "../../utils/hash";
 
@@ -21,6 +20,6 @@ export async function loginUserUseCase({ password, email }: LoginUserRequest) {
 
     return user;
   } else {
-    throw new Error("Internal Error.");
+    throw new Error("User not found.");
   }
 }
