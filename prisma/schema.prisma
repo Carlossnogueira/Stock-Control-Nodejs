@@ -20,41 +20,41 @@ enum MovementType {
 }
 
 model User {
-  id            Int         @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   name          String
-  email         String      @unique
+  email         String     @unique
   password_hash String
   Movements     Movement[]
-  created_at   DateTime    @default(now())
+  created_at    DateTime   @default(now())
 }
 
 model Category {
-  id       Int      @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
   products Product[]
 }
 
 model Product {
-  id           Int         @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   name         String
-  sku          String?      @unique
+  sku          String?    @unique
   quantity     Int
   category_id  Int
-  category     Category  @relation(fields: [category_id], references: [id])
+  category     Category   @relation(fields: [category_id], references: [id])
   min_quantity Int
   max_quantity Int
-  price_cost  Decimal     @db.Decimal(10, 2)
-  price_sale   Decimal     @db.Decimal(10, 2)
+  price_cost   Decimal    @db.Decimal(10, 2)
+  price_sale   Decimal    @db.Decimal(10, 2)
   supplier_id  Int?
-  supplierId   Supplier?   @relation(fields: [supplier_id], references: [id])
-  created_at   DateTime    @default(now())
+  supplierId   Supplier?  @relation(fields: [supplier_id], references: [id])
+  created_at   DateTime   @default(now())
   Movements    Movement[]
 }
 
 model Movement {
   id          Int          @id @default(autoincrement())
   product_id  Int
-  productId   Product       @relation(fields: [product_id], references: [id])
+  productId   Product      @relation(fields: [product_id], references: [id])
   type        MovementType
   quantity    Int
   description String
@@ -64,9 +64,9 @@ model Movement {
 }
 
 model Supplier {
-  id     Int      @id @default(autoincrement())
-  name   String
-  phone  String
-  email  String
-  Produt Product[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  phone    String
+  email    String
+  products Product[]
 }
