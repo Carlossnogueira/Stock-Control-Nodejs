@@ -11,19 +11,20 @@ import { editCategory } from "./controllers/Category/editCategory";
 import { getAllSuppliers } from "../user-cases/Supplier/getAllSupplierUseCase";
 import { editSupplier } from "./controllers/Supplier/editSupplier";
 import { removeSupplierController } from "./controllers/Supplier/removeSupplier";
+import { getAllProducts } from "../user-cases/Product/getAllProductUseCase";
+import { removeProductController } from "./controllers/Product/removeProduct";
+import { editProduct } from "./controllers/Product/editProduct";
 
 export async function appRoutes(app: FastifyInstance) {
-  // User Routes
+
 
   app.post("/register", registerUser);
   app.post("/login", loginUser);
 
-  // Product Routes
-
   app.post("/product", { preHandler: [verifyJWT] }, createProduct);
-
-
-  // Category Routes
+  app.get("/product", { preHandler: [verifyJWT] }, getAllProducts);
+  app.delete("/product/:id", {preHandler: [verifyJWT] }, removeProductController);
+  app.patch("/product/:id" , {preHandler: [verifyJWT] }, editProduct);
 
   app.post("/category", { preHandler: [verifyJWT] }, createCategory);
   app.get("/category", { preHandler: [verifyJWT] }, getAllCategories);
@@ -31,14 +32,10 @@ export async function appRoutes(app: FastifyInstance) {
   app.patch("/category/:id" , {preHandler: [verifyJWT] }, editCategory);
   
 
-
-  // Supplier Routes
-
   app.post("/supplier", { preHandler: [verifyJWT] }, createSupplier);
   app.get("/supplier", {preHandler: [verifyJWT] }, getAllSuppliers);
   app.delete("/supplier/:id", {preHandler: [verifyJWT] }, removeSupplierController);
   app.patch("/supplier/:id" , {preHandler: [verifyJWT] }, editSupplier);
 
   
-  // TODO crud product
 }
