@@ -53,6 +53,27 @@ This system is a stock management API built with Fastify and Prisma (PostgreSQL)
    }
 
 
+1 - The controller validates the payload using Zod.
+
+2 - The use-case checks if the product already exists by name.
+
+3 - If valid, the repository inserts the product into the database.
+
+4- A success response (201 Created) is returned to the client.
+
+
+### 🧩 Entities Overview
+
+- Category: groups products logically
+
+- Product: holds stock information, prices, and relationships with category and supplier
+
+- Supplier: represents providers of products
+
+- Movement: logs inventory entries and exits (e.g., restocks, sales)
+
+- User: tracks which user performed each movement
+
 ## 🛠️ Technologies Used
 
 - **Backend:** NodeJs Fastify
