@@ -1,6 +1,5 @@
 # 📦 Stock Management System
 
-⚠ THIS PROJECT IS PAUSED ⚠
 
 This is a simple inventory control system designed for study purposes. It helps manage product quantities, track stock movements, and ensure that inventory data remains accurate and up-to-date.
 

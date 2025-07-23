@@ -25,12 +25,12 @@ export class SupplierRepository {
     return suppliers;
   }
 
-  async remove(id: number){
-
+  async remove(id: number) {
+    return await prisma.supplier.delete({ where: { id } });
   }
 
-  async update(id: number, data: Prisma.SupplierCreateInput){
-
+  async update(id: number, data: Prisma.SupplierUpdateInput) {
+    return await prisma.supplier.update({ where: { id }, data });
   }
 
 }
