@@ -41,4 +41,7 @@ export class ProductRepository {
     return await prisma.product.update({ where: { id }, data });
   }
 
+  
+
+
 }

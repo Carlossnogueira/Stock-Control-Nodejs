@@ -14,6 +14,7 @@ import { removeSupplierController } from "./controllers/Supplier/removeSupplier"
 import { getAllProducts } from "../user-cases/Product/getAllProductUseCase";
 import { removeProductController } from "./controllers/Product/removeProduct";
 import { editProduct } from "./controllers/Product/editProduct";
+import { createMovement } from "./controllers/Movements/createMovement";
 
 export async function appRoutes(app: FastifyInstance) {
 
@@ -36,6 +37,8 @@ export async function appRoutes(app: FastifyInstance) {
   app.get("/supplier", {preHandler: [verifyJWT] }, getAllSuppliers);
   app.delete("/supplier/:id", {preHandler: [verifyJWT] }, removeSupplierController);
   app.patch("/supplier/:id" , {preHandler: [verifyJWT] }, editSupplier);
+
+  app.post("/movement", {preHandler: [verifyJWT]}, createMovement)
 
   
 }
